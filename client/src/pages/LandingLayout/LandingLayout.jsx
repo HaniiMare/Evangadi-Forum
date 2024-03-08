@@ -1,29 +1,37 @@
-import React from 'react'
-import Header from "../../components/Header/Header"
-import bg from "../../assets/bg.jpg"
-// import Home from "../../components/Home/Home"
-// import Footer from "../../components/Footer/Footer"
+import React, { useState } from "react";
+import Header from "../../components/Header/Header";
+import bg from "../../assets/bg.jpg";
+import LogIn from "../../components/LogIn/LogIn";
+import SignUp from "../../components/SignUp/SignUp";
+// import Home from '../Home/Home'
+// import Footer from '../Footer/Footer'
 
-const LandingLayout = () => {
+const Landing = () => {
+  const [currentPage, setCurrentPage] = useState("login");
+
   return (
-    <div>
+    <section>
       <Header />
-      <main className='landing  bg-body-tertiary' style={{
-        background: `url(${bg})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-      }}>
-        <section className='container d-md-flex'>
+      <main
+        className="landing  bg-body-tertiary"
+        style={{
+          background: `url(${bg})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
+        <section className="container d-md-flex pt-5 gap-5">
           {/* form login/sign-up */}
-          <div className='col'>
-            <h1>The Form</h1>
-          </div>
+          {currentPage === "login" && <LogIn setCurrentPage={setCurrentPage} />}
+          {currentPage === "signup" && (
+            <SignUp setCurrentPage={setCurrentPage} />
+          )}
 
           {/* welcome message */}
-          <div className='col'>
-            <p className='text-warning fw-smibold'>About</p>
-            <h1 className='fw-bold'>Evangadi Networks Q&A</h1>
-            <div className='d-flex flex-column gap-4'>
+          <div className="col mt-5">
+            <p className="text-warning fw-smibold">About</p>
+            <h1 className="fw-bold">Evangadi Networks Q&A</h1>
+            <div className="d-flex flex-column gap-4">
               <p>
                 No matter what stage of life you are in, whether you’re just
                 starting elementary school or being promoted to CEO of a Fortune
@@ -37,14 +45,18 @@ const LandingLayout = () => {
               </p>
             </div>
             <div>
-              <button className='btn btn-warning text-white fw-bold py-2 px-5 mt-3' style={{ background: "#FE8402" }}>HOW IT WORKS</button>
+              <button
+                className="btn btn-warning text-white fw-bold py-2 px-5 mt-3"
+                style={{ background: "#FE8402" }}
+              >
+                HOW IT WORKS
+              </button>
             </div>
           </div>
         </section>
       </main>
-      {/* <Footer /> */}
-    </div>
-  )
-}
+    </section>
+  );
+};
 
-export default LandingLayout
+export default Landing;
