@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createContext } from "react";
 import Landing from "./pages/LandingLayout/LandingLayout";
-// import Home from "./pages/Home/Home";
+import Home from "./pages/Home/Home";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from "./axiosConfig";
 // import AskQuestion from "./components/AskQuestion/AskQuestion";
@@ -52,7 +52,7 @@ function App() {
     <AppState.Provider value={{ user, setuser, question, setQuestion }}>
       <Routes>
         <Route path="/Login" element={<Landing />} />
-        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Home />} />
         {/* <Route path="/questions" element={<AskQuestion />} />
         <Route path="/answer" element={<Answer />} /> */}
       </Routes>
