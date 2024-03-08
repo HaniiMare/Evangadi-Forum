@@ -3,14 +3,15 @@ import Landing from "./pages/LandingLayout/LandingLayout";
 import Home from "./pages/Home/Home";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from "./axiosConfig";
-// import AskQuestion from "./components/AskQuestion/AskQuestion";
-// import Answer from "./components/Asnwer/Asnwer";
+import AskQuestion from "./components/AskQuestion/AskQuestion";
+import Answer from "./components/Answer/Answer";
 
 export const AppState = createContext();
 
 function App() {
   const [user, setuser] = useState({});
   const [question, setQuestion] = useState({});
+  console.log(question, "this is question")
 
   // console.log(question)
 
@@ -22,7 +23,7 @@ function App() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setuser(data);
-      console.log(data);
+      console.log(data, "this is data");
     } catch (error) {
       navigate("/Login");
       console.log(error.response);
@@ -53,8 +54,8 @@ function App() {
       <Routes>
         <Route path="/Login" element={<Landing />} />
         <Route path="/" element={<Home />} />
-        {/* <Route path="/questions" element={<AskQuestion />} />
-        <Route path="/answer" element={<Answer />} /> */}
+        <Route path="/questions" element={<AskQuestion />} />
+        <Route path="/answer" element={<Answer />} />
       </Routes>
     </AppState.Provider>
   );
