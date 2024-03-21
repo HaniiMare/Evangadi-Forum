@@ -10,7 +10,7 @@ const AskQuestion = () => {
   const navigate = useNavigate();
   const { user } = useContext(AppState);
   const token = localStorage.getItem("token");
-
+ console.log(user, " this is user")
   const titleDom = useRef(null);
   const descriptionDom = useRef(null);
   const tagDom = useRef(null);
@@ -22,10 +22,9 @@ const AskQuestion = () => {
     const tagValue = tagDom.current.value;
     const questionid = uuidv4();
     const userid = user.userid;
-    console.log(userid);
+    console.log(userid, " this is user id");
 
     if (
-      !questionid ||
       !userid ||
       !titleValue ||
       !descriptionValue ||

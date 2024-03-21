@@ -1,12 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
+import Footer from '../../components/Footer/Footer'
 import { useNavigate, Link } from "react-router-dom";
 import { PiUserCircleDuotone } from "react-icons/pi";
 import { FaAngleRight } from "react-icons/fa6";
 import { AppState } from "../../App";
+import axiosBase from "../../axiosConfig";
 
 const Home = () => {
-  const { user, question } = useContext(AppState);
+  const { user } = useContext(AppState);
+  const [question, setQuestion] = useState();
+
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    async function getQuestion() {
+      try {
+        const { data } = await axiosBase.get("/questions/all-questions", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        // console.log(data)
+        setQuestion(data.allquestion); // Assuming data holds the question value
+      } catch (error) {
+        console.error("Error fetching question:", error);
+      }
+    }
+    getQuestion();
+  }, []);
+
   // console.log(question);
   // console.log(user.username);
 
@@ -44,8 +67,8 @@ const Home = () => {
         <div className="container mt-5">
           <h2>Question</h2>
 
-          {question.allquestion &&
-            question.allquestion.map((item, index) => (
+          {question &&
+            question.map((item, index) => (
               <Link
                 className="text-decoration-none text-black"
                 key={index}
@@ -59,20 +82,20 @@ const Home = () => {
                 <div className="d-flex justify-content-between align-items-center ">
                   <div className="d-md-flex align-items-center gap-4">
                     <div className="d-flex flex-column align-items-center gap-3 ">
-                      {/* user */}
+                
                       <div>
                         <PiUserCircleDuotone size={100} />
                       </div>
                       <div>{item.username}</div>
                     </div>
                     <div>
-                      {/* question */}
+                  
                       <p>{item.title}</p>
                     </div>
                   </div>
 
                   <div>
-                    {/* arrow */}
+              
                     <FaAngleRight size={30} />
                   </div>
                 </div>
@@ -80,6 +103,7 @@ const Home = () => {
             ))}
         </div>
       </section>
+      {/* <Footer /> */}
     </>
   );
 };
